@@ -1,0 +1,69 @@
+!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-ABdnjefqVzESm+f9z9hcqx2cvwvDNjfrwfW5Le9138qHCMGlNmWawyn/tt4jR4ba" crossorigin="anonymous">
+    <title>Servicio tecnico</title>
+    <style>body{min-height: auto; min-width: auto; background: white; color: black; position: center;}</style>
+    <link href="../../css/bundle.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ml-1" id="navbarTogglerDemo01">
+            <img src="../../uploads/emblema.jpeg" width="100" class="d-inline-block align-top ml4" alt="logo">
+            <h2 class="ml-3" style="font-family: Verdana">Centro Medico <%= user.local.empresa  %></h2>
+        </div>
+        <div></div>
+        <div class="form-inline">
+            <strong>Dr. <%= user.local.nombres  %> <%= user.local.apellidos  %></strong>
+            <a href="/logout" class="btn btn-light">Cerrar sessión</a>
+        </div>
+    </nav>
+</header>
+<header class="row">
+    <div class="col-md-6">
+        <section class="centrado">
+            <h3>cargar señales automaticas</h3>
+            <form action="/newHistory/senal/<%=datos._id%>?_method=PUT" method="post" enctype="multipart/form-data">
+                <input TYPE="hidden" name="_method" value="PUT">
+                <div class="form-row">
+                    <h5 class="mt-4">Tipo señal: </h5>
+                    <div class="col-md-4 mb-1 mt-3"><input type="text" id="datosSSenal" name="tipoSenal" class="form-control form-control-lg"></div>
+                </div>
+                <canvas id="myChart" height="400" width="1000"></canvas>
+                <div id="datosSecciones"></div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">guardar señal</button>
+            </form>
+        </section>
+    </div>
+</header>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../../js/bundle.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+    let cont = 0;
+        socket.on('arduino:data', function (dataSerial) {
+            chart.data.labels.push(cont); chart.data.datasets.forEach(dataset => { dataset.data.push(dataSerial.value);
+            datas.innerHTML = '<input type="hidden" name="DatoSenal"  value="'+ dataset.data +'">';});
+            cont++;
+            chart.update();});
+    var datas = document.getElementById('datosSecciones');
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {labels: ["puntos"],
+            datasets: [{ label: 'señal biomedica', fill: false, backgroundColor: 'rgb(255, 99, 132)', borderColor: 'rgb(255, 99, 132)', borderWidth: 2, pointRadius: 0.4, pointHitRadius: 2, lineTension: 0.1,
+                data: []}]},
+        options: { scales: { yAxes: [{ stacked: true}]}}});
+</script>
+</body>
+</html>

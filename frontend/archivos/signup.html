@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-ABdnjefqVzESm+f9z9hcqx2cvwvDNjfrwfW5Le9138qHCMGlNmWawyn/tt4jR4ba" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <title>Signup</title>
+    <style>body{min-height: 80vh; min-width: auto;}</style>
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img src="uploads/logo1.jpeg" width="300"  class="d-inline-block align-top ml4" alt="logo">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ml-5" id="navbarTogglerDemo01">
+            <h1 style="text-align: center;" class="ml-5">Generar cuenta nueva</h1>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mt-5">
+            <img src="uploads/signup.jpg" alt="publica" width="500">
+        </div>
+        <div class="col-md-6 mt-5">
+            <form action="/signup" method="POST">
+                <div class="form-row">
+                    <div class="col-md-6 mb-4">
+                        <input type="text" name="nombres" class="form-control form-control-lg" placeholder="nombres *" required>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <input type="text" name="apellidos" class="form-control form-control-lg" placeholder="apellidos *" required>
+                    </div>
+                </div>
+                <div class="col-md-15 mb-4">
+                    <input type="email" name="email" class="form-control form-control-lg" placeholder="correo electronico *" required>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-4">
+                        <input type="password" name="password" class="form-control form-control-lg" placeholder="contraseña *" required>
+                        <small class="text-muted">Must be 8-20 characters long.</small>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <input type="password" name="password1" class="form-control form-control-lg" placeholder="confirmar contraseña *" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-4">
+                        <input type="text" name="especialidad" class="form-control form-control-lg" placeholder="cargo *" required>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <input type="text" name="empresa" class="form-control form-control-lg" placeholder="nombre clinica *" required>
+                    </div>
+                </div>
+                <div>
+                    <p style="color: navy;">Al hacer clic en "Registrarse", aceptas nuestras Condiciones, la Política de datos y la Política de cookies. El cual nos hacemos cargo de sus datos personales</p>
+                </div>
+                <button class="btn btn-primary" type="submit">Registrarse</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                <p>Already have an account? <a href="/login">Login</a></p>
+                <p>or go <a href="/">Home</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

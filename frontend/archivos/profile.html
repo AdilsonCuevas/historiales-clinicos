@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-ABdnjefqVzESm+f9z9hcqx2cvwvDNjfrwfW5Le9138qHCMGlNmWawyn/tt4jR4ba" crossorigin="anonymous">
+    <title>Profile</title>
+    <style>body{min-height: auto; min-width: auto; background: white; color: black; position: center;}</style>
+    <link href="css/bundle.css" rel="stylesheet"></head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ml-1" id="navbarTogglerDemo01">
+            <img src="uploads/emblema.jpeg" width="100" class="d-inline-block align-top ml4" alt="logo">
+            <h2 class="ml-3" style="font-family: Verdana">Centro Medico <%= user.local.empresa  %></h2>
+        </div>
+        <div></div>
+        <div class="form-inline">
+            <strong>Dr. <%= user.local.nombres  %> <%= user.local.apellidos  %></strong>
+            <a href="/logout" class="btn btn-light">Cerrar sessión</a>
+        </div>
+    </nav>
+</header>
+<header class="row">
+    <div class="col-md-2">
+        <nav id="opciones">
+            <ul>
+                <a href="/perfil"><li class="lis"><p class="menu">Perfil</p></li></a>
+                <a href="/profile"><li class="lis"><p class="menu">Pacientes</p></li></a>
+                <a href="/agenda"><li class="lis"><p class="menu">Agenda</p></li></a>
+                <a href="/newHistory"><li class="lis"><p class="menu">Historial nuevo</p></li></a>
+                <a href="/stecnico"><li class="lis"><p class="menu">Soporte tecnico</p></li></a>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-6">
+        <section class="centrado">
+            <div class="card-history mt-3">
+                <div class="card-body col-sm-6 mx-auto" style="background-color: aliceblue; text-align: center">
+                    <h2>Informacion Medica</h2>
+                    <h5>En esta sesión encontraras todos los historiales medicos de sus pacientes</h5>
+                </div>
+            </div>
+            <div class="tabs mt-3">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item ml-3"><a class="nav-link active" data-toggle="tab" href="#home">Atenciones</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile">Otra informacion</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active show" id="home">
+                        <h3 class="mt-4">Historico de antecedentes </h3>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr class="table-dark">
+                                <th scope="col">N°</th>
+                                <th scope="col">Nombres</th>
+                                <th scope="col">Identificacion</th>
+                                <th scope="col">Sexo</th>
+                                <th scope="col">edad</th>
+                                <th scope="col">acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i =0; i<historiales.length; i++) { %>
+                            <tr>
+                                <th scope="col"><%= i+1%>></th>
+                                <th scope="col"><%= historiales[i].nombreP%></th>
+                                <th scope="col"><%= historiales[i].identidadP%></th>
+                                <th scope="col"><%= historiales[i].generoP%></th>
+                                <th scope="col"><%= historiales[i].edadP%></th>
+                                <th scope="col">
+                                    <div class="form-inline">
+                                        <a href="/newHistory/edit/<%=historiales[i]._id%>" class="badge badge-primary">Editar</a>
+                                        <form action="/newHistory/delete/<%=historiales[i]._id%>?_method=DELETE" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="badge badge-danger">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </th>
+                            </tr>
+                            <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="profile">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="buscador" method="get">
+                                    <div class="form-row">
+                                        <div class="col-md-3 mb-1 mt-3"><label>Buscar por numero de documento:</label><input class="form-control" type="text" name="buscador" placeholder="Search"></div>
+                                        <div class="col-md-3 mb-1 mt-5"><button type="submit" class="btn btn-primary" >Search</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card text-white bg-secondary mb-3 mt-3" style="max-width: 20rem;">
+                            <div class="card-header">Resultados</div>
+                            <div class="card-body">
+                                <h4 class="card-title"></h4>
+                                <p class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="js/bundle.js"></script></body>
+</html>

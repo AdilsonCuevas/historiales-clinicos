@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-ABdnjefqVzESm+f9z9hcqx2cvwvDNjfrwfW5Le9138qHCMGlNmWawyn/tt4jR4ba" crossorigin="anonymous">
+    <title>Agenda</title>
+    <style>body{min-height: auto; min-width: auto; background: white; color: black; position: center;}</style>
+    </head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ml-1" id="navbarTogglerDemo01">
+            <img src="uploads/emblema.jpeg" width="100" class="d-inline-block align-top ml4" alt="logo">
+            <h2 class="ml-3" style="font-family: Verdana">Centro Medico </h2>
+        </div>
+        <div class="form-inline">
+            <strong>Dr. </strong>
+            <a href="/logout" class="btn btn-light">Cerrar sessión</a>
+        </div>
+    </nav>
+</header>
+<header class="row">
+    <div class="col-md-2">
+        <nav id="opciones">
+            <ul>
+                <a href="/perfil"><li class="lis"><p class="menu">Perfil</p></li></a>
+                <a href="/profile"><li class="lis"><p class="menu">Pacientes</p></li></a>
+                <a href="/agenda"><li class="lis"><p class="menu">Agenda</p></li></a>
+                <a href="/newHistory"><li class="lis"><p class="menu">Historial nuevo</p></li></a>
+                <a href="/stecnico"><li class="lis"><p class="menu">Soporte tecnico</p></li></a>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-6">
+        <section class="centrado">
+            <div class="agenda mt-3">
+                <div class="card-body col-sm-6 mx-auto" style="background-color: aliceblue; text-align: center">
+                    <h2>Agenda Medica</h2>
+                    <h5>En esta sesión encontraras una agenda para llevar el tiempo de sus consultas en sus dias establecidad</h5>
+                </div>
+            </div>
+            <h3 class="ml-5 mt-3" style="position: center">Calendario</h3>
+            <div class="calendar">
+                <div class="calendar__info">
+                    <div class="calendar__prev" id="prev__month">&#9664;</div>
+                    <div class="calendar__month" id="month"></div>
+                    <div class="calendar__year" id="year"></div>
+                    <div class="calendar__next" id="next__month">&#9654;</div>
+                </div>
+                <div class="calendar__week">
+                    <div class="calendar__day calendar__item">Mon</div>
+                    <div class="calendar__day calendar__item">Tue</div>
+                    <div class="calendar__day calendar__item">Wed</div>
+                    <div class="calendar__day calendar__item">Thu</div>
+                    <div class="calendar__day calendar__item">Fri</div>
+                    <div class="calendar__day calendar__item">Sat</div>
+                    <div class="calendar__day calendar__item">Sun</div>
+                </div>
+                <div class="calendar__dates" id="dates"></div>
+            </div>
+            <div class="container">
+                <h3 class="ml-5 mt-5">Actividades</h3>
+                <form action="/agenda" method="post">
+                    <div class="form-row mt-2">
+                        <div class="col-md-4 mb-2"><input type="text" name="titulo" class="form-control form-control-lg mt-4" placeholder="Titulo de nota" required></div>
+                        <div class="col-md-2 mb-2 ml-3"><label>Fecha </label><input type="date" name="fecha" class="form-control form-control-lg"  required></div>
+                        <div class="col-md-2 mb-2 ml-3"><label>Hora</label><input type="time" name="hora" class="form-control form-control-lg" required></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg mt-1">Guardar</button>
+                </form>
+                <table class="table table-hover mt-3">
+                    <thead>
+                    <tr class="table-dark">
+                        <th scope="col">N°</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(var i =0; i<agendas.length; i++) { %>
+                    <tr>
+                        <th scope="col"><%= i+1%>></th>
+                        <th scope="col"><%= agendas[i].titulo%></th>
+                        <th scope="col"><%= agendas[i].fecha%></th>
+                        <th scope="col"><%= agendas[i].hora%></th>
+                        <th scope="col">
+                            <div class="form-inline">
+                                <form action="/agenda/edit/<%=agendas[i]._id%>?_method=DELETE" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="badge badge-danger">Eliminar</button>
+                                </form>
+                            </div>
+                        </th>
+                    </tr>
+                    <%}%>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</header>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="js/calendarios.js"></script>
+</body>
+</html>
